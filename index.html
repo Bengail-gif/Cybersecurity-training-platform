@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cybersecurity Awareness Training - Faith University</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- ===================== NAVIGATION ===================== -->
+  <nav class="navbar">
+    <h1>🔒 CyberSec Training - Faith University</h1>
+    <div class="nav-links">
+      <a href="#dashboard" onclick="showSection('dashboard')">Dashboard</a>
+      <a href="#modules" onclick="showSection('modules')">Modules</a>
+      <a href="#quiz" onclick="showSection('quiz')">Take Quiz</a>
+      <a href="#progress" onclick="showSection('progress')">My Progress</a>
+      <a href="#" onclick="logout()">Logout</a>
+      <a href="Admin/login.php" class="admin-link">
+    <i class="fas fa-user-shield"></i> Admin Panel
+</a>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <!-- ===================== LOGIN SECTION ===================== -->
+    <section id="login-section" class="section active">
+      <div class="card login-card">
+        <h2>Student Login</h2>
+        <div id="login-alert"></div>
+        <form onsubmit="handleLogin(event)">
+          <div class="form-group">
+            <label for="student-id">Student ID</label>
+            <input type="text" id="student-id" placeholder="e.g., FU2024001" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter password" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+       <div style="margin-top: 1.5rem; text-align: center;">
+  <p style="color: var(--muted); margin-bottom: 0.5rem;">New student? <a href="#" onclick="showRegisterForm()" style="color: var(--primary); font-weight: 600;">Create an account</a></p>
+</div>
+
+<!-- Registration Form (hidden by default) -->
+<div id="register-form" style="display: none; margin-top: 2rem; padding-top: 2rem; border-top: 2px solid var(--border);">
+  <h3 style="color: var(--primary); margin-bottom: 1rem;">Create New Account</h3>
+  <div id="register-alert"></div>
+  <form onsubmit="handleRegister(event)">
+    <div class="form-group">
+      <label for="reg-student-id">Student ID</label>
+      <input type="text" id="reg-student-id" placeholder="e.g., FU2024001" required>
+    </div>
+    <div class="form-group">
+      <label for="reg-full-name">Full Name</label>
+      <input type="text" id="reg-full-name" placeholder="e.g., John Doe" required>
+    </div>
+       <div class="form-group">
+      <label for="reg-password">Password</label>
+      <input type="password" id="reg-password" placeholder="At least 6 characters" required minlength="6">
+    </div>
+    <button type="submit" class="btn btn-success" style="width: 100%;">Create Account</button>
+  </form>
+  <p style="margin-top: 1rem; text-align: center;">
+    <a href="#" onclick="showLoginForm()" style="color: var(--primary); font-weight: 600;">← Back to Login</a>
+  </p>
+</div>
+      </div>
+    </section>
+
+    <!-- ===================== DASHBOARD SECTION ===================== -->
+    <section id="dashboard-section" class="section">
+      <div class="card">
+        <h2>Welcome, <span id="student-name">Student</span>!</h2>
+        <p>Your cybersecurity awareness training dashboard. Complete modules and quizzes to improve your online safety skills.</p>
+        <div class="progress-bar">
+          <div class="progress-fill" id="overall-progress"></div>
+        </div>
+        <p class="progress-text">Overall Progress: <span id="progress-text">0%</span></p>
+      </div>
+
+      <div class="grid">
+        <div class="card module-card" onclick="showSection('modules')">
+          <div class="module-icon">📚</div>
+          <h3>Learning Modules</h3>
+          <p>Access training materials on passwords, phishing, malware, and more.</p>
+        </div>
+        <div class="card module-card" onclick="showSection('quiz')">
+          <div class="module-icon">✅</div>
+          <h3>Take a Quiz</h3>
+          <p>Test your knowledge with interactive cybersecurity scenarios.</p>
+        </div>
+        <div class="card module-card" onclick="showSection('progress')">
+          <div class="module-icon">📊</div>
+          <h3>View Progress</h3>
+          <p>Track your completed modules and quiz scores.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== MODULES SECTION ===================== -->
+    <section id="modules-section" class="section">
+      <div class="card">
+        <h2>Learning Modules</h2>
+        <p>Click on any module to start learning. Each module covers essential cybersecurity topics.</p>
+      </div>
+
+      <div class="grid">
+        <div class="card module-card" onclick="openModule('passwords')">
+          <div class="module-icon">🔑</div>
+          <h3>Password Security</h3>
+          <p>Learn how to create strong passwords and use password managers safely.</p>
+          <button class="btn btn-primary">Start Module</button>
+        </div>
+
+        <div class="card module-card" onclick="openModule('phishing')">
+          <div class="module-icon">🎣</div>
+          <h3>Phishing Awareness</h3>
+          <p>Identify phishing emails, fake websites, and social engineering attacks.</p>
+          <button class="btn btn-primary">Start Module</button>
+        </div>
+
+        <div class="card module-card" onclick="openModule('malware')">
+          <div class="module-icon">🦠</div>
+          <h3>Malware Protection</h3>
+          <p>Understand viruses, ransomware, trojans, and how to prevent infections.</p>
+          <button class="btn btn-primary">Start Module</button>
+        </div>
+
+        <div class="card module-card" onclick="openModule('social-engineering')">
+          <div class="module-icon">🎭</div>
+          <h3>Social Engineering</h3>
+          <p>Recognize manipulation tactics used by attackers to steal information.</p>
+          <button class="btn btn-primary">Start Module</button>
+        </div>
+
+        <div class="card module-card" onclick="openModule('data-protection')">
+          <div class="module-icon">🛡️</div>
+          <h3>Data Protection</h3>
+          <p>Learn about encryption, backups, and protecting personal information.</p>
+          <button class="btn btn-primary">Start Module</button>
+        </div>
+
+        <div class="card module-card" onclick="openModule('safe-browsing')">
+          <div class="module-icon">🌐</div>
+          <h3>Safe Internet Usage</h3>
+          <p>Practice safe browsing habits, recognize secure websites, and avoid risks.</p>
+          <button class="btn btn-primary">Start Module</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== MODULE CONTENT SECTION ===================== -->
+    <section id="module-content-section" class="section">
+      <div class="card">
+        <button class="btn btn-primary" onclick="showSection('modules')">← Back to Modules</button>
+        <h2 id="module-title">Module Title</h2>
+        <div id="module-content">
+          <!-- Module content will be loaded here by JavaScript -->
+        </div>
+        <button class="btn btn-success" onclick="completeModule()">Mark as Complete</button>
+      </div>
+    </section>
+
+    <!-- ===================== QUIZ SECTION ===================== -->
+    <section id="quiz-section" class="section">
+      <div class="card">
+        <h2>Cybersecurity Knowledge Quiz</h2>
+        <p>Answer the following questions to test your understanding. Select the best answer for each question.</p>
+        <div id="quiz-container">
+          <!-- Quiz questions will be loaded here by JavaScript -->
+        </div>
+        <button class="btn btn-primary" id="submit-quiz-btn" onclick="submitQuiz()">Submit Quiz</button>
+        <div id="quiz-result"></div>
+      </div>
+    </section>
+
+    <!-- ===================== PROGRESS SECTION ===================== -->
+    <section id="progress-section" class="section">
+      <div class="card">
+        <h2>Your Progress</h2>
+        <p>Track your completed modules and quiz performance.</p>
+      </div>
+
+      <div class="card">
+        <h3>Completed Modules</h3>
+        <ul id="completed-modules-list">
+          <li>No modules completed yet.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Quiz Scores</h3>
+        <div id="quiz-scores">
+          <p>No quizzes taken yet.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="js/script.js"></script>
+
+</body>
+</html>
